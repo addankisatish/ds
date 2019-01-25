@@ -1,0 +1,84 @@
+
+
+TAR Utility commands
+---------------------
+
+1. Creating an archive using tar command. Creating an uncompressed tar archive using option cvf
+
+$ tar cvf archive_name.tar dirname/
+$ tar cvzf archive_name.tar.gz dirname/     Note: .tgz is same as .tar.gz
+tar cvfj archive_name.tar.bz2 dirname/      Note: .tbz and .tb2 is same as .tar.bz2
+
+
+2. Extracting (untar) an archive using tar command
+
+$ tar xvf archive_name.tar
+$ tar xvfz archive_name.tar.gz
+$ tar xvfj archive_name.tar.bz2
+
+3. Listing an archive using tar command
+
+View the tar archive file content without extracting using option tvf
+
+$ tar tvf archive_name.tar
+$ tar tvfz archive_name.tar.gz
+$ tar tvfj archive_name.tar.bz2
+
+4. Extract a single file from tar, tar.gz, tar.bz2 file
+
+To extract a specific file from a tar archive, specify the file name at the end of the tar xvf command as shown below. 
+The following command extracts only a specific file from a large tar file.
+
+$ tar xvf archive_file.tar /path/to/file
+$ tar xvfz archive_file.tar.gz /path/to/file
+$ tar xvfj archive_file.tar.bz2 /path/to/file
+
+5. Extract a single directory from tar, tar.gz, tar.bz2 file
+To extract a single directory (along with it’s subdirectory and files) from a tar archive, specify the directory name 
+at the end of the tar xvf command as shown below. The following extracts only a specific directory from a large tar file.
+
+$ tar xvf archive_file.tar /path/to/dir/
+$ tar xvfz archive_file.tar.gz /path/to/dir/
+$ tar xvfj archive_file.tar.bz2 /path/to/dir/
+
+To extract multiple directories from a tar archive, specify those individual directory names at the end of the tar xvf command as shown below.
+
+$ tar xvf archive_file.tar /path/to/dir1/ /path/to/dir2/
+
+
+6. Extract group of files from tar, tar.gz, tar.bz2 archives using regular expression
+You can specify a regex, to extract files matching a specified pattern. 
+
+For example, following tar command extracts all the files with pl extension.
+
+$ tar xvf archive_file.tar --wildcards '*.pl'
+
+7. Adding a file or directory to an existing archive using option -r
+You can add additional files to an existing tar archive as shown below. 
+
+For example, to append a file to *.tar file do the following:
+$ tar rvf archive_name.tar newfile
+This newfile will be added to the existing archive_name.tar. 
+
+Adding a directory to the tar is also similar,
+$ tar rvf archive_name.tar newdir/
+
+Note: You cannot add file or directory to a compressed archive. If you try to do so, you will get “tar: Cannot update compressed archives” error as shown below.
+
+$ tar rvfz archive_name.tgz newfile
+tar: Cannot update compressed archives
+Try `tar --help' or `tar --usage' for more information.
+
+8. Estimate the tar archive size
+
+The following command, estimates the tar file size ( in KB ) before you create the tar file.
+$ tar -cf - /directory/to/archive/ | wc -c
+20480
+
+The following command, estimates the compressed tar file size ( in KB ) before you create the tar.gz, tar.bz2 files.
+
+$ tar -czf - /directory/to/archive/ | wc -c
+508
+
+$ tar -cjf - /directory/to/archive/ | wc -c
+428
